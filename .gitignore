@@ -1,0 +1,15 @@
+/.idea
+/reports
+/venv
+/images
+/nuitka_demo
+/build
+/dist
+
+/*.pdf
+/*.png
+/*.html
+/*.xlsx
+
+/*.spec
+__pycache__

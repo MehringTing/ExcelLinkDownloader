@@ -1,0 +1,1 @@
+pyinstaller ../../src/downloader.py -n ExcelLinkDownloader -F -w -i ./app.ico --add-data "../../src/ui;ui" --add-data "../../src/assets;assets" --upx-dir D:\software\upx-3.96-win64
