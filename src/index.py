@@ -9,7 +9,7 @@ def main_window():
     window = webview.create_window('ExcelLinkDownloader', resource_path('ui/index.html'), width=1080,
                                    height=760, min_size=(1080, 760), resizable=True, js_api=api, confirm_close=True
                                    )
-    webview.start(debug=False)
+    webview.start(debug=True)
 
 
 if __name__ == '__main__':
