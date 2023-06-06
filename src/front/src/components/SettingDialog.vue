@@ -106,3 +106,19 @@ export default {
     color: #999;
 }
 </style>
+
+<style lang="scss">
+.el-dialog {
+    .el-dialog__header {
+        border-bottom: 1px solid #efefef;
+    }
+    .el-dialog__body {
+        max-height: calc(80vh - 185px);
+        overflow: auto;
+    }
+    .el-dialog__footer {
+        padding: 10px 20px;
+        border-top: 1px solid #efefef;
+    }
+}
+</style>

@@ -131,6 +131,13 @@ export default {
 			}, 20);
 		});
 
+		document.addEventListener('keydown', (evt) => {
+			if (evt.code === 'F5') {
+				evt.preventDefault();
+				return ;
+			}
+		});
+
 		this.workbookReader = new Spreadsheet('#spreadsheet-container', XSDT_OPTIONS);
 		this.workbookReader.change(function (data) {
 			console.log(data);
@@ -140,7 +147,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .progress {
     position: absolute;
     bottom: 5px;
@@ -149,6 +155,9 @@ export default {
         width: 24px;
     }
 }
+</style>
+
+<style lang="scss">
 a#output {
     cursor: pointer;
     font-weight: bold;
