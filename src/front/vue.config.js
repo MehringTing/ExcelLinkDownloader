@@ -4,10 +4,7 @@ const WebpackObfuscator = require('webpack-obfuscator');
 
 const cdn = {
     js: [
-        // 'js/jquery.min.js',
-        // 'js/xspreadsheet/xspreadsheet.js',
-        // 'js/xlsxspread.min.js',
-        // 'js/xlsx.full.min.js',
+
     ],
     css: [
 
@@ -38,13 +35,6 @@ module.exports = defineConfig({
                 }
             }
         });
-        // config.plugin('provide').use(webpack.ProvidePlugin, [
-        //     {
-        //          $: 'jquery',
-        //         jQuery: 'jquery',
-        //         'window.jQuery': 'jquery',
-        //     },
-        // ]);
     },
     configureWebpack: config => {
         console.log('config',config)
@@ -60,13 +50,6 @@ module.exports = defineConfig({
                     // rotateStringArray: true,
                 }, [])
             )
-        }
-        config.externals = {
-            // vue: 'Vue',
-            // vuex: 'Vuex',
-            // axios: 'axios',
-            // jquery: 'JQuery',
-            // 'element-ui': 'ElEMENT',
         }
     },
 })
