@@ -8,6 +8,16 @@ import webview
 from multiprocessing import Pool
 
 
+def get_hyperlink(text):
+    pattern = r'\"(http[s]?://[^\"]+)\"'
+    match = re.search(pattern, text)
+
+    if match:
+        return match.group(1)
+    else:
+        return ''
+
+
 class Downloader:
     def __init__(self):
         self.settings = None
@@ -59,7 +69,13 @@ class Downloader:
             dirname = self.replace(dirname, row)
 
         for col, cell_value in row.items():
-            if not cell_value or not cell_value.startswith('http'):
+            if not cell_value.startswith('http'):
+                if cell_value.startswith('=HYPERLINK('):
+                    cell_value = get_hyperlink(cell_value)
+                else:
+                    cell_value = ''
+
+            if not cell_value:
                 continue
 
             if filename:
