@@ -18,6 +18,41 @@ def get_hyperlink(text):
         return ''
 
 
+def revise_dirname(dirname):
+    return dirname.translate(str.maketrans({
+        '\\': None,
+        ':': None,
+        '*': None,
+        '?': None,
+        '"': None,
+        '<': None,
+        '>': None,
+        '|': None,
+    }))
+
+
+def revise_filename(filename):
+    return filename.translate(str.maketrans({
+        '\\': None,
+        ':': None,
+        '*': None,
+        '?': None,
+        '"': None,
+        '<': None,
+        '>': None,
+        '|': None,
+        '/': None,
+    }))
+
+
+def file_is_exists(filename):
+    if os.path.exists(filename):
+        arr = os.path.splitext(filename)
+        return file_is_exists(arr[0]+'(1)' + arr[-1])
+    else:
+        return filename
+
+
 class Downloader:
     def __init__(self):
         self.settings = None
@@ -53,7 +88,10 @@ class Downloader:
         if not os.path.isdir(storage_path):
             os.makedirs(storage_path, mode=777)
 
-        with open(os.path.join(storage_path, filename), 'wb') as f:
+        filename = os.path.join(storage_path, filename)
+        filename = file_is_exists(filename)
+
+        with open(filename, 'wb') as f:
             f.write(result.content)
             f.close()
 
@@ -64,6 +102,7 @@ class Downloader:
         dirname = self.settings.get('dirname')
         filename = self.settings.get('filename')
 
+        # 文件名不能包含 \/:*?"<>|
         if re.match(r'^([^:<>*?/|\\]+(/?[^:<>*?/|\\])?)+$', dirname):
             # replace column variable like [A], [B]
             dirname = self.replace(dirname, row)
@@ -81,7 +120,7 @@ class Downloader:
             if filename:
                 # replace column variable like [A], [B] etc and [EXT]
                 if re.match(r'^[^:<>*?/|\\]+$', filename):
-                    if re.match(r'\[[a-zA-A]+\]', filename):
+                    if re.search(r'\[[a-zA-Z]+\]', filename):
                         if filename.endswith('[EXT]'):
                             _, ext = os.path.splitext(cell_value)
                             filename = filename.replace('[EXT]', ext)
@@ -97,12 +136,13 @@ class Downloader:
             else:
                 filename = os.path.basename(cell_value)
 
-            storage_path = os.path.join(root_dirname, dirname)
-            self.load(cell_value, storage_path, filename)
+            storage_path = os.path.join(root_dirname, revise_dirname(dirname))
+            self.load(cell_value, storage_path, revise_filename(filename))
 
         return True
 
     def download(self, data: dict, setting: dict) -> dict:
+        print(setting)
         raw = data.get('raw')
 
         if len(raw) < 1:

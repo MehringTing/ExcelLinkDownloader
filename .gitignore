@@ -1,0 +1,6 @@
+__pycache__
+release
+venv
+
+nuitka/o
+pyinstaller/o
