@@ -1,0 +1,14 @@
+certifi==2023.7.22
+cffi==1.15.1
+charset-normalizer==3.2.0
+clr-loader==0.2.5
+idna==3.4
+Nuitka==1.7.7
+ordered-set==4.1.0
+proxy-tools==0.1.0
+pycparser==2.21
+pythonnet==3.0.1
+pywebview==3.7
+requests==2.31.0
+urllib3==2.0.4
+zstandard==0.21.0
